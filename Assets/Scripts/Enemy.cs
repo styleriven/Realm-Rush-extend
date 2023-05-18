@@ -13,13 +13,13 @@ public class Enemy : MonoBehaviour
         bank = FindObjectOfType<Bank>();
     }
 
-    public void RewardGold()
+    public void RewardGold(int k=0)
     {
         if(bank == null) return;
-        bank.Deposit(goldReward);
+        bank.Deposit(goldReward+k);
     }
 
-    public void StealGold()
+    public void StealGold( )
     {
         if(bank == null) return;
         bank.Withdraw(goldReward);

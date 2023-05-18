@@ -7,10 +7,12 @@ public class Tower : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField] int buy = 50; 
     [SerializeField] int cost = 80; 
-
+    [SerializeField] float buildDelay = 1f; 
     public Bank bank;
-    
 
+    private void Start() {
+        StartCoroutine(Build());
+    }
     public void RewardGold()
     {
         if(bank == null) return;
@@ -18,22 +20,45 @@ public class Tower : MonoBehaviour
     }
 
 
-    public Tower createTower(Tower towerPrefab , Transform transform )
+    public bool CreateTower(Tower towerPrefab , Transform transform, GameObject towerParent)
     {
         bank = FindObjectOfType<Bank>();
         if(bank == null)
         {
 
-            return null;
+            return false;
         }
 
         if(bank.CurrentBalance >= cost)
         {
+
             bank.Withdraw(cost);
-            return Instantiate(towerPrefab,transform.position,transform.rotation);
+            Tower Tower = Instantiate(towerPrefab,transform.position,transform.rotation);
+            Tower.transform.parent = towerParent.transform;
+            return true;
         }
-        return null;
+        return false;
         
     }
+    IEnumerator Build()
+    {
+        foreach(Transform child in transform)
+        {
+            child.gameObject.SetActive(false);
+            foreach(Transform grandchild in child)
+            {
+                grandchild.gameObject.SetActive(false);
+            }
+        }
 
+        foreach(Transform child in transform)
+        {
+            child.gameObject.SetActive(true);
+            yield return new WaitForSeconds(buildDelay) ;
+            foreach(Transform grandchild in child)
+            {
+                grandchild.gameObject.SetActive(true);
+            }
+        }
+    }
 }

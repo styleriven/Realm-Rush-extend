@@ -12,17 +12,37 @@ public class WayPoint : MonoBehaviour
     GameObject towerParent;
 
 
+    GridManager gridManager;
+    Vector2Int coordinates = new Vector2Int();
+    Pathfinder pathfinder ;
+    private void Awake() {
+        gridManager = FindAnyObjectByType<GridManager>();
+        pathfinder = FindAnyObjectByType<Pathfinder>();
+        
+    }
+
     void Start() {
         towerParent = GameObject.Find("Tower");
+        if(gridManager != null) {
+            
+            coordinates = gridManager.GetCoordinatesFromPosition(transform.position);
+            if (!IsPlaceable )
+            {
+                gridManager.BlockNode(coordinates);
+            }
+        }
      }
+     
     void OnMouseDown() {
 
-        if(IsPlaceable)
+        if(gridManager.GetNode(coordinates).isWalkable && !pathfinder.WillBlockPath(coordinates))
         {
-            Tower Tower = towerPrefab.createTower(towerPrefab,transform);
-            if(Tower == null) return;
-            Tower.transform.parent = towerParent.transform;
-            isPlaceable = false;
+            bool isSuccessful = towerPrefab.CreateTower(towerPrefab, transform,towerParent);
+            if(isSuccessful){
+            gridManager.BlockNode(coordinates);
+            pathfinder.NotifyReceiver();
+            }
         }
+        
     }    
 }

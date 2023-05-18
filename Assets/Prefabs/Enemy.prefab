@@ -49,14 +49,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   path:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  speed: 2.15
+  - coordinates: {x: 0, y: 0}
+    isWalkable: 0
+    isExplored: 0
+    isPath: 0
+  - coordinates: {x: 0, y: 0}
+    isWalkable: 0
+    isExplored: 0
+    isPath: 0
+  - coordinates: {x: 0, y: 0}
+    isWalkable: 0
+    isExplored: 0
+    isPath: 0
+  - coordinates: {x: 0, y: 0}
+    isWalkable: 0
+    isExplored: 0
+    isPath: 0
+  - coordinates: {x: 0, y: 0}
+    isWalkable: 0
+    isExplored: 0
+    isPath: 0
+  - coordinates: {x: 0, y: 0}
+    isWalkable: 0
+    isExplored: 0
+    isPath: 0
+  - coordinates: {x: 0, y: 0}
+    isWalkable: 0
+    isExplored: 0
+    isPath: 0
+  speed: 1.11
 --- !u!65 &8733652621602474642
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -84,6 +105,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHitPoints: 2
   difficultyRamp: 2
+  difficultyMoney: 0
   currentHitPoints: 5
 --- !u!114 &-7453283076687991587
 MonoBehaviour:

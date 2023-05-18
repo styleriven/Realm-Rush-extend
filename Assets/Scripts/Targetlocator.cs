@@ -11,7 +11,7 @@ public class Targetlocator : MonoBehaviour
     [SerializeField ] GameObject weapon;
 
     [SerializeField ] Transform target;
-    [SerializeField]  float range = 15f;
+    [SerializeField]  float range = 25f;
     void Start()
     {
 
@@ -44,6 +44,11 @@ public class Targetlocator : MonoBehaviour
     }
     void AiWeapon()
     {
+        if(target==null) 
+        {
+            Attack(false);
+            return;
+        }
         float targetDistance = Vector3.Distance(transform.position, target.position);
 
         weapon.transform.LookAt(target);
